@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEMESIS — SECTOR 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.045) 3px,rgba(0,0,0,0.045) 4px)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:998;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,4,12,0.7) 100%)}
+
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bd2)}::-webkit-scrollbar-track{background:transparent}
+html{scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
+
+@keyframes glitch1{0%,93%,100%{clip-path:inset(0 0 100% 0);transform:none}94%{clip-path:inset(20% 0 55% 0);transform:translate(-3px,0);filter:hue-rotate(80deg)}95%{clip-path:inset(60% 0 10% 0);transform:translate(3px,0)}97%{clip-path:inset(40% 0 40% 0);transform:translate(-2px,0);filter:hue-rotate(-80deg)}99%{clip-path:inset(75% 0 5% 0);transform:none;filter:none}}
+@keyframes glitch2{0%,90%,100%{opacity:0}91%{opacity:1;transform:translate(2px,-1px);clip-path:inset(30% 0 50% 0)}93%{transform:translate(-2px,1px);clip-path:inset(50% 0 20% 0)}94%{opacity:0}}
+@keyframes neonFlicker{0%,18%,20%,22%,25%,53%,55%,100%{opacity:1}19%,21%,54%{opacity:.35}}
+@keyframes scanDown{0%{transform:translateY(-100vh)}100%{transform:translateY(100vh)}}
+@keyframes gridMove{to{background-position:80px 80px}}
+@keyframes hexData{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes revealLeft{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+@keyframes revealRight{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes blink{0%,100%{opacity:1}49%{opacity:1}50%{opacity:0}}
+@keyframes barFill{from{width:0}to{width:var(--w)}}
+@keyframes typewriter{from{width:0}to{width:100%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes glow{0%,100%{text-shadow:0 0 20px var(--c0),0 0 40px rgba(0,255,231,.3)}50%{text-shadow:0 0 40px var(--c0),0 0 80px rgba(0,255,231,.6),0 0 3px #fff}}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+@keyframes warningPulse{0%,100%{border-color:rgba(255,45,85,.2);box-shadow:0 0 0 rgba(255,45,85,0)}50%{border-color:rgba(255,45,85,.7);box-shadow:0 0 30px rgba(255,45,85,.2)}}
+@keyframes subtleRankGlow{0%,100%{filter:drop-shadow(0 0 4px currentColor) brightness(1)}50%{filter:drop-shadow(0 0 6px currentColor) brightness(1.02)}}
+@keyframes rankColorGlow{0%,100%{filter:drop-shadow(0 0 6px currentColor)}50%{filter:drop-shadow(0 0 10px currentColor) brightness(1.05)}}
+@keyframes emeraldGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(80,200,120,0.6)) brightness(1)}50%{filter:drop-shadow(0 0 6px rgba(80,200,120,0.8)) brightness(1.02)}}
+@keyframes masterGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,140,50,0.6)) brightness(1)}50%{filter:drop-shadow(0 0 6px rgba(255,140,50,0.8)) brightness(1.02)}}
+@keyframes nemesisGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(168,85,247,0.6)) brightness(1)}50%{filter:drop-shadow(0 0 6px rgba(168,85,247,0.8)) brightness(1.02)}}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --c0:#00ffe7;--c1:#ff2d55;--c2:#39ff14;--c3:#ff9500;--c4:#a855f7;
+  --bg:#020508;--bg2:#050c12;--bg3:#091420;
+  --panel:rgba(4,10,18,0.96);
+  --bd:rgba(0,255,231,0.16);--bd2:rgba(0,255,231,0.42);--bd3:rgba(0,255,231,0.07);
+  --tx:#c8f0f8;--dim:rgba(180,220,240,0.38);--gold:#ffcc00;
+  --glow0:rgba(0,255,231,0.3);--glow1:rgba(255,45,85,0.3);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Share Tech Mono',monospace;overflow-x:hidden;cursor:crosshair}
+
+/* SCANLINES */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.045) 3px,rgba(0,0,0,0.045) 4px)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:998;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,4,12,0.7) 100%)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bd2)}::-webkit-scrollbar-track{background:transparent}
+html{scrollbar-width:thin;scrollbar-color:var(--bd2) transparent}
+
+/* ANIMATIONS */
+@keyframes glitch1{0%,93%,100%{clip-path:inset(0 0 100% 0);transform:none}94%{clip-path:inset(20% 0 55% 0);transform:translate(-3px,0);filter:hue-rotate(80deg)}95%{clip-path:inset(60% 0 10% 0);transform:translate(3px,0)}97%{clip-path:inset(40% 0 40% 0);transform:translate(-2px,0);filter:hue-rotate(-80deg)}99%{clip-path:inset(75% 0 5% 0);transform:none;filter:none}}
+@keyframes glitch2{0%,90%,100%{opacity:0}91%{opacity:1;transform:translate(2px,-1px);clip-path:inset(30% 0 50% 0)}93%{transform:translate(-2px,1px);clip-path:inset(50% 0 20% 0)}94%{opacity:0}}
+@keyframes neonFlicker{0%,18%,20%,22%,25%,53%,55%,100%{opacity:1}19%,21%,54%{opacity:.35}}
+@keyframes scanDown{0%{transform:translateY(-100vh)}100%{transform:translateY(100vh)}}
+@keyframes gridMove{to{background-position:80px 80px}}
+@keyframes hexData{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes revealLeft{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+@keyframes revealRight{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes blink{0%,100%{opacity:1}49%{opacity:1}50%{opacity:0}}
+@keyframes barFill{from{width:0}to{width:var(--w)}}
+@keyframes typewriter{from{width:0}to{width:100%}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes glow{0%,100%{text-shadow:0 0 20px var(--c0),0 0 40px rgba(0,255,231,.3)}50%{text-shadow:0 0 40px var(--c0),0 0 80px rgba(0,255,231,.6),0 0 3px #fff}}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+@keyframes warningPulse{0%,100%{border-color:rgba(255,45,85,.2);box-shadow:0 0 0 rgba(255,45,85,0)}50%{border-color:rgba(255,45,85,.7);box-shadow:0 0 30px rgba(255,45,85,.2)}}
+@keyframes subtleRankGlow{0%,100%{filter:drop-shadow(0 0 4px currentColor) brightness(1)}50%{filter:drop-shadow(0 0 6px currentColor) brightness(1.02)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:54px;
+  background:rgba(2,5,8,0.92);border-bottom:1px solid var(--bd);
+  backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:0 36px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:8px;color:var(--c0);
+  text-shadow:0 0 20px rgba(0,255,231,.5);animation:neonFlicker 9s ease infinite;cursor:pointer}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-link{font-size:9px;letter-spacing:4px;color:var(--dim);text-decoration:none;text-transform:uppercase;
+  transition:.15s;position:relative}
+.nav-link:hover{color:var(--c0)}
+.nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--c0);transition:.25s}
+.nav-link:hover::after{width:100%}
+.nav-cta{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;
+  color:var(--c0);border:1px solid var(--bd2);background:rgba(0,255,231,.06);
+  padding:7px 20px;text-decoration:none;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+  transition:.15s;position:relative;overflow:hidden}
+.nav-cta::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,255,231,.1),transparent);
+  transform:translateX(-100%);transition:.4s}
+.nav-cta:hover::after{transform:translateX(100%)}
+.nav-cta:hover{background:rgba(0,255,231,.14);box-shadow:0 0 24px rgba(0,255,231,.18)}
+.nav-status{display:flex;align-items:center;gap:6px;font-size:7px;letter-spacing:3px;color:var(--c2)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--c2);animation:pulse 1.4s ease infinite}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:54px}
+.hero-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,255,231,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.04) 1px,transparent 1px);
+  background-size:80px 80px;animation:gridMove 18s linear infinite}
+.hero-grid::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(0,255,231,.06),transparent 55%),
+  radial-gradient(ellipse at 80% 20%,rgba(255,45,85,.04),transparent 40%)}
+.hero-scan{position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(0,255,231,.5),transparent);
+  animation:scanDown 7s linear infinite}
+.hero-hex{position:absolute;top:0;right:0;bottom:0;width:200px;overflow:hidden;opacity:.1;pointer-events:none}
+.hero-hex-inner{font-size:8px;color:var(--c0);line-height:1.8;white-space:pre;padding:54px 8px;animation:hexData 30s linear infinite}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(2,5,8,.7) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 60px;max-width:900px;animation:fadeUp .9s cubic-bezier(.16,1,.3,1)}
+.hero-pre{font-size:9px;letter-spacing:10px;color:var(--c0);opacity:.6;margin-bottom:14px}
+.hero-title{position:relative;display:inline-block}
+.hero-title-main{font-family:'Bebas Neue',sans-serif;font-size:clamp(90px,12vw,160px);
+  letter-spacing:6px;line-height:.88;color:var(--c0);
+  text-shadow:0 0 60px rgba(0,255,231,.5);animation:neonFlicker 9s ease infinite}
+.hero-title-main::before{content:'NEMESIS';position:absolute;inset:0;color:var(--c1);opacity:.55;animation:glitch1 7s ease infinite;pointer-events:none}
+.hero-title-main::after{content:'NEMESIS';position:absolute;inset:0;left:3px;color:var(--c2);opacity:.4;animation:glitch2 7s ease infinite;pointer-events:none}
+.hero-sub{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:16px;color:var(--c1);margin-top:8px;opacity:.9}
+.hero-line{width:400px;max-width:100%;height:1px;background:linear-gradient(90deg,var(--c0),rgba(0,255,231,.08),transparent);margin:24px 0}
+.hero-desc{font-size:11px;letter-spacing:2px;color:var(--dim);line-height:1.9;max-width:480px;margin-bottom:36px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:5px;
+  color:var(--c0);border:1px solid var(--bd2);background:rgba(0,255,231,.07);
+  padding:14px 36px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  transition:.15s;position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,255,231,.1),transparent);
+  transform:translateX(-100%);transition:.4s}
+.btn-primary:hover::after{transform:translateX(100%)}
+.btn-primary:hover{background:rgba(0,255,231,.14);box-shadow:0 0 32px rgba(0,255,231,.2),-4px 0 0 var(--c0);color:#fff}
+.btn-secondary{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;
+  color:var(--dim);border:1px solid var(--bd);background:transparent;
+  padding:14px 28px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));transition:.15s}
+.btn-secondary:hover{color:var(--tx);border-color:rgba(0,255,231,.4)}
+.hero-stats{display:flex;gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--bd3);flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:4px}
+.hero-stat-val{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--c0)}
+.hero-stat-val.r{color:var(--c1)}.hero-stat-val.g{color:var(--c2)}.hero-stat-val.o{color:var(--c3)}
+.hero-stat-lbl{font-size:7px;letter-spacing:4px;color:var(--dim)}
+
+/* CORNER BRACKETS */
+.cb{position:absolute;pointer-events:none;width:22px;height:22px}
+.cb::before,.cb::after{content:'';position:absolute;background:var(--c0)}
+.cb.tl{top:0;left:0}.cb.tl::before{top:0;left:0;width:100%;height:2px}.cb.tl::after{top:0;left:0;width:2px;height:100%}
+.cb.tr{top:0;right:0}.cb.tr::before{top:0;right:0;width:100%;height:2px}.cb.tr::after{top:0;right:0;width:2px;height:100%}
+.cb.bl{bottom:0;left:0}.cb.bl::before{bottom:0;left:0;width:100%;height:2px}.cb.bl::after{bottom:0;left:0;width:2px;height:100%}
+.cb.br{bottom:0;right:0}.cb.br::before{bottom:0;right:0;width:100%;height:2px}.cb.br::after{bottom:0;right:0;width:2px;height:100%}
+
+/* TICKER */
+.ticker{background:rgba(0,255,231,.04);border-top:1px solid var(--bd3);border-bottom:1px solid var(--bd3);
+  padding:10px 0;overflow:hidden;position:relative}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;background:rgba(0,255,231,.1);
+  border-right:1px solid var(--bd);display:flex;align-items:center;padding:0 18px;
+  font-size:8px;letter-spacing:4px;color:var(--c0);z-index:2;white-space:nowrap}
+.ticker-track{display:flex;gap:60px;animation:tickerScroll 30s linear infinite;padding-left:160px}
+.ticker-item{font-size:8px;letter-spacing:3px;color:var(--dim);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--c1);flex-shrink:0}
+.ticker-dot.g{background:var(--c2)}.ticker-dot.o{background:var(--c3)}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{position:relative;padding:100px 60px}
+.section-label{font-size:8px;letter-spacing:6px;color:var(--c0);opacity:.6;margin-bottom:10px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,6vw,72px);letter-spacing:4px;color:var(--tx);line-height:1;margin-bottom:6px}
+.section-title span{color:var(--c0)}
+.section-line{width:200px;height:1px;background:linear-gradient(90deg,var(--c0),transparent);margin:20px 0 48px}
+
+/* FEATURE SECTION */
+#features{background:var(--bg)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;
+  background:var(--bd3);border:1px solid var(--bd3)}
+.feat-card{background:var(--bg);padding:36px;position:relative;overflow:hidden;transition:.2s}
+.feat-card:hover{background:var(--bg2)}
+.feat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--c0);transition:.3s}
+.feat-card:hover::before{height:100%}
+.feat-icon{font-size:32px;margin-bottom:18px}
+.feat-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:var(--tx);margin-bottom:8px}
+.feat-desc{font-size:9px;letter-spacing:1px;color:var(--dim);line-height:1.8}
+.feat-tag{display:inline-block;font-size:7px;letter-spacing:3px;color:var(--c0);
+  background:rgba(0,255,231,.07);border:1px solid var(--bd3);padding:3px 10px;margin-top:12px}
+
+/* INTEL / FEED */
+#intel{background:var(--bg2);position:relative;overflow:hidden}
+#intel::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,45,85,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,45,85,.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none}
+.intel-layout{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
+.intel-feed{display:flex;flex-direction:column;gap:8px}
+.feed-row{font-size:9px;letter-spacing:2px;color:var(--dim);line-height:1.6;
+  border-left:2px solid var(--bd3);padding:8px 14px;background:rgba(0,0,0,.2);
+  animation:fadeUp .4s ease both;cursor:default;transition:.15s}
+.feed-row:hover{background:rgba(0,255,231,.02);border-left-color:var(--bd)}
+.feed-row.r{border-color:rgba(255,45,85,.5);color:rgba(255,100,120,.8)}
+.feed-row.g{border-color:rgba(57,255,20,.5);color:rgba(80,255,40,.8)}
+.feed-row.o{border-color:rgba(255,149,0,.5);color:rgba(255,180,50,.8)}
+.feed-ts{font-size:7px;color:rgba(0,255,231,.3);margin-right:8px}
+.intel-panel{background:rgba(2,6,10,.9);border:1px solid var(--bd3);
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);position:relative}
+.intel-panel-hdr{padding:16px 20px;border-bottom:1px solid var(--bd3);
+  font-size:8px;letter-spacing:4px;color:var(--c0)}
+.threat-meter{padding:20px}
+.threat-label{font-size:8px;letter-spacing:4px;color:var(--dim);margin-bottom:6px}
+.threat-val{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;color:var(--c1);
+  text-shadow:0 0 30px rgba(255,45,85,.4);animation:pulse 2s ease infinite}
+.threat-bar-wrap{margin:12px 0;height:4px;background:rgba(255,255,255,.05)}
+.threat-bar{height:100%;background:linear-gradient(90deg,var(--c2),var(--c3),var(--c1));width:87%;
+  transition:width .5s}
+.intel-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd3);margin-top:1px}
+.intel-stat{background:rgba(2,6,10,.9);padding:14px 16px}
+.intel-stat-v{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--tx)}
+.intel-stat-l{font-size:7px;letter-spacing:3px;color:var(--dim);margin-top:2px}
+.intel-warning{border:1px solid rgba(255,45,85,.3);margin:16px;padding:12px;
+  font-size:8px;letter-spacing:2px;color:rgba(255,80,100,.8);
+  animation:warningPulse 2s ease infinite;display:flex;align-items:center;gap:8px}
+
+/* DOWNLOAD SECTION */
+#downloads{background:var(--bg);position:relative;overflow:hidden;text-align:center}
+#downloads::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,255,231,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,231,.03) 1px,transparent 1px);
+  background-size:80px 80px;animation:gridMove 20s linear infinite}
+.dl-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,100px);
+  letter-spacing:6px;color:var(--c0);position:relative;display:inline-block;
+  text-shadow:0 0 60px rgba(0,255,231,.4);animation:glow 3s ease infinite;margin-bottom:16px}
+.dl-sub{font-size:10px;letter-spacing:4px;color:var(--dim);margin-bottom:48px;line-height:2}
+.dl-cards{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:60px}
+.dl-card{background:rgba(4,9,16,.9);border:1px solid var(--bd);padding:28px 36px;min-width:200px;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  cursor:pointer;transition:.15s;position:relative;overflow:hidden}
+.dl-card:hover{border-color:var(--bd2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,255,231,.1)}
+.dl-card::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,255,231,.06),transparent);
+  transform:translateX(-100%);transition:.5s}
+.dl-card:hover::after{transform:translateX(100%)}
+.dl-card-icon{font-size:36px;margin-bottom:14px}
+.dl-card-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;color:var(--tx);margin-bottom:4px}
+.dl-card-info{font-size:8px;letter-spacing:2px;color:var(--dim)}
+.dl-build{font-size:8px;letter-spacing:4px;color:rgba(0,255,231,.25);margin-top:48px}
+
+/* RANKINGS */
+#rankings{background:var(--bg)}
+.rankings-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,100px);
+  letter-spacing:6px;color:var(--c0);position:relative;display:inline-block;
+  text-shadow:0 0 60px rgba(0,255,231,.4);animation:glow 3s ease infinite;margin-bottom:16px}
+.rankings-sub{font-size:10px;letter-spacing:4px;color:var(--dim);margin-bottom:48px;line-height:2}
+.rankings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;justify-content:center;max-width:1400px;margin:0 auto}
+.rank-card{background:rgba(4,9,16,.85);border:2px solid var(--bd);padding:32px 24px;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  transition:.25s;position:relative;overflow:hidden;text-align:center;display:flex;flex-direction:column;align-items:center;cursor:pointer;
+  backdrop-filter:blur(4px)}
+.rank-card:hover{border-color:var(--bd2);transform:translateY(-8px);box-shadow:0 16px 60px rgba(0,255,231,.15)}
+.rank-card::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,255,231,.08),transparent);
+  transform:translateX(-100%);transition:.5s;pointer-events:none}
+.rank-card:hover::after{transform:translateX(100%)}
+.rank-badge-container{width:140px;height:140px;margin-bottom:24px;display:flex;align-items:center;justify-content:center;
+  position:relative;border-radius:12px;background:rgba(0,0,0,.3);border:1px solid rgba(0,255,231,.1)}
+.rank-badge-container.high-tier{animation:subtleRankGlow 2.5s ease-in-out infinite}
+.rank-badge-container.emerald-tier{animation:emeraldGlow 2.5s ease-in-out infinite}
+.rank-badge-container.master-tier{animation:masterGlow 2.5s ease-in-out infinite}
+.rank-badge-container.nemesis-tier{animation:nemesisGlow 2.5s ease-in-out infinite}
+.rank-badge-svg{width:120px;height:120px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+.rank-badge-img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+.rank-badge-glow{position:absolute;inset:0;border-radius:12px;opacity:0;animation:rankPulse 3s ease-in-out infinite}
+.rank-card.high-tier .rank-badge-glow{opacity:1}
+.rank-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:var(--tx);margin-bottom:10px;position:relative;z-index:1}
+.rank-desc{font-size:9px;letter-spacing:1px;color:var(--dim);line-height:1.7;position:relative;z-index:1}
+.rank-rank{font-size:7px;letter-spacing:3px;color:rgba(0,255,231,.4);margin-top:8px}
+
+@keyframes rankPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+/* FOOTER */
+footer{background:rgba(2,4,8,.98);border-top:1px solid var(--bd3);padding:40px 60px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;align-items:start}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:8px;color:var(--c0);
+  text-shadow:0 0 20px rgba(0,255,231,.4);margin-bottom:8px}
+.footer-tagline{font-size:8px;letter-spacing:3px;color:var(--dim);line-height:1.8}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-link{font-size:9px;letter-spacing:3px;color:var(--dim);text-decoration:none;transition:.14s}
+.footer-link:hover{color:var(--c0)}
+.footer-col-title{font-size:8px;letter-spacing:4px;color:var(--c0);margin-bottom:14px;opacity:.7}
+.footer-copy{grid-column:1/-1;border-top:1px solid var(--bd3);padding-top:20px;
+  font-size:7px;letter-spacing:3px;color:rgba(0,255,231,.2);display:flex;justify-content:space-between;flex-wrap:gap}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .6s,transform .6s}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity .6s,transform .6s}
+.reveal-right.visible{opacity:1;transform:none}
+
+/* CURSOR */
+.cursor{position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:screen}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(0,255,231,.6);border-radius:50%;
+  position:fixed;transform:translate(-50%,-50%);transition:transform .1s,width .2s,height .2s;pointer-events:none;z-index:9999}
+.cursor-dot{width:4px;height:4px;background:var(--c0);border-radius:50%;
+  position:fixed;transform:translate(-50%,-50%);pointer-events:none;z-index:9999}
+
+/* MODAL */
+.rank-modal{position:fixed;inset:0;background:rgba(2,5,8,0.98);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;z-index:5000;animation:fadeIn 0.3s ease}
+.rank-modal-content{background:rgba(4,10,18,0.98);border:2px solid rgba(0,255,231,0.4);
+  padding:60px 50px;max-width:550px;text-align:center;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));
+  animation:fadeUp 0.4s cubic-bezier(0.16,1,0.3,1);position:relative}
+.rank-modal-badge{width:160px;height:160px;margin:0 auto 32px;display:flex;align-items:center;justify-content:center}
+.rank-modal-badge svg,.rank-modal-badge img{width:100%;height:100%;filter:drop-shadow(0 8px 24px rgba(0,255,231,.2))}
+.rank-modal-title{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:6px;
+  color:var(--c0);text-shadow:0 0 40px rgba(0,255,231,0.4);margin-bottom:20px}
+.rank-modal-desc{font-size:12px;letter-spacing:1px;color:var(--dim);line-height:1.9;margin-bottom:32px}
+.rank-modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;padding:20px;background:rgba(0,255,231,.04);border:1px solid var(--bd3)}
+.rank-modal-stat{text-align:center}
+.rank-modal-stat-v{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--c0)}
+.rank-modal-stat-l{font-size:7px;letter-spacing:3px;color:var(--dim);margin-top:4px}
+.rank-modal-close{font-size:8px;letter-spacing:3px;color:rgba(0,255,231,.25)}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  section{padding:70px 20px}
+  .hero-content{padding:0 20px}
+  .intel-layout{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;padding:30px 20px}
+  .dl-cards{flex-direction:column;align-items:center}
+  .rankings-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+}
+</style>
+</head>
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<div class="features" style="display:flex;gap:30px;justify-content:center;margin:30px 0;font-weight:600;">
+  <div>🔒 Secure</div>
+  <div>🎮 Fun Gameplay</div>
+  <div>⚡ Easy Install</div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NEMESIS</div>
+  <div class="nav-links">
+    <a href="#features" class="nav-link">FEATURES</a>
+    <a href="#intel" class="nav-link">INTEL</a>
+    <a href="#rankings" class="nav-link">RANKINGS</a>
+    <a href="#downloads" class="nav-link">DOWNLOAD</a>
+    <a href="support.html" class="nav-link">SUPPORT</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="nav-status"><div class="status-dot"></div>LIVE · </div>
+    <a href="#downloads" class="nav-cta">GET IT — FREE</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-hex">
+    <div class="hero-hex-inner" id="hexContent"></div>
+  </div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-pre">// TACTICAL ARENA — SECTOR 7 — BUILD 2087.04 //</div>
+    <div class="hero-title">
+      <div class="hero-title-main">NEMESIS</div>
+    </div>
+    <div class="hero-sub">SECTOR 7</div>
+    <div class="hero-line"></div>
+    <div class="hero-desc">
+      HIGH-INTENSITY TACTICAL FPS. 40+ WEAPONS. ZERO MERCY.<br/>
+      SECTOR 7 HAS FALLEN. YOU ARE THE LAST OPERATIVE.
+    </div>
+    <div class="hero-btns">
+      <a href="#downloads" class="btn-primary">▶ &nbsp; DEPLOY TO SECTOR</a>
+      <a href="#features" class="btn-secondary">◈ &nbsp; VIEW FEATURES</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">40+</div>
+        <div class="hero-stat-lbl">WEAPONS</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val r">12</div>
+        <div class="hero-stat-lbl">ACTIVE HOSTILES</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val g">ONLINE</div>
+        <div class="hero-stat-lbl">SERVER STATUS</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val o">v2087</div>
+        <div class="hero-stat-lbl">BUILD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-label">// INTEL FEED //</div>
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">// CORE SYSTEMS</div>
+  <div class="section-title">COMBAT <span>SYSTEMS</span></div>
+  <div class="section-line"></div>
+  <div class="features-grid reveal">
+    <div class="feat-card">
+      <div class="feat-icon">🎯</div>
+      <div class="feat-title">PRECISION BALLISTICS</div>
+      <div class="feat-desc">Every weapon has a unique recoil pattern, fire rate, and bullet spread. Master your loadout or die trying. Recoil compensation separates operatives from casualties.</div>
+      <div class="feat-tag">SIM-GRADE PHYSICS</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⚡</div>
+      <div class="feat-title">40+ WEAPONS</div>
+      <div class="feat-desc">Pistols to railguns. SMGs to flamethrowers. Anti-material rifles to explosive crossbows. Every weapon class feels distinct. Every trigger pull matters.</div>
+      <div class="feat-tag">7 WEAPON CLASSES</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🛡️</div>
+      <div class="feat-title">TACTICAL LOADOUTS</div>
+      <div class="feat-desc">Choose your primary, secondary, and throwables before deployment. Tactical shields, grenades, and special equipment change the entire meta of every engagement.</div>
+      <div class="feat-tag">PRE-MATCH STRATEGY</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🌀</div>
+      <div class="feat-title">ENEMY AI</div>
+      <div class="feat-desc">Hostiles patrol, flank, and communicate. They react to sound, cover, and heat. Sector 7 is never the same twice — adapt or be eliminated.</div>
+      <div class="feat-tag">ADAPTIVE THREAT ENGINE</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💰</div>
+      <div class="feat-title">ARMORY PROGRESSION</div>
+      <div class="feat-desc">Every kill earns credits. Spend them in the Armory to unlock legendary gear. Common to Legendary — rarity changes stats, cosmetics, and squad presence.</div>
+      <div class="feat-tag">4 RARITY TIERS</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔥</div>
+      <div class="feat-title">SECTOR MAP</div>
+      <div class="feat-desc">A brutalist urban warzone — rubble, corridors, open lanes, and ambush positions. Every corner is a decision. Every rooftop is a vantage point or a death sentence.</div>
+      <div class="feat-tag">DESIGNED FOR CHAOS</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEL -->
+<section id="intel">
+  <div class="intel-layout">
+    <div>
+      <div class="section-label">// SECTOR 7 DISPATCH</div>
+      <div class="section-title">LIVE <span>INTEL</span></div>
+      <div class="section-line"></div>
+      <div class="intel-feed" id="intelFeed"></div>
+    </div>
+    <div>
+      <div class="intel-panel reveal-right">
+        <div class="cb tl"></div><div class="cb tr"></div><div class="cb bl"></div><div class="cb br"></div>
+        <div class="intel-panel-hdr">⚠ THREAT ASSESSMENT</div>
+        <div class="threat-meter">
+          <div class="threat-label">CURRENT THREAT LEVEL</div>
+          <div class="threat-val">CRITICAL</div>
+          <div class="threat-bar-wrap"><div class="threat-bar"></div></div>
+          <div style="font-size:7px;letter-spacing:3px;color:var(--dim);margin-top:6px">87% — SECTOR COMPROMISED</div>
+        </div>
+        <div class="intel-stats">
+          <div class="intel-stat">
+            <div class="intel-stat-v" id="liveHostiles">12</div>
+            <div class="intel-stat-l">ACTIVE HOSTILES</div>
+          </div>
+          <div class="intel-stat">
+            <div class="intel-stat-v" style="color:var(--c1)">KIA</div>
+            <div class="intel-stat-l">LAST OPERATIVE</div>
+          </div>
+          <div class="intel-stat">
+            <div class="intel-stat-v" style="color:var(--c2)">STABLE</div>
+            <div class="intel-stat-l">NETWORK UPLINK</div>
+          </div>
+          <div class="intel-stat">
+            <div class="intel-stat-v" style="color:var(--c3)">7A</div>
+            <div class="intel-stat-l">AMMO CACHE LOC</div>
+          </div>
+        </div>
+        <div class="intel-warning">
+          <div style="font-size:14px">⚠</div>
+          <div>REINFORCEMENTS UNAVAILABLE. OPERATIVE IS ISOLATED. ORBITAL STRIKE: LOCKED.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section id="downloads">
+  <div class="dl-title">DEPLOY</div>
+  <div class="dl-sub">
+    DOWNLOAD NEMESIS — SECTOR 7<br/>
+    AVAILABLE ON WINDOWS, macOS, AND LINUX
+  </div>
+  <div class="dl-cards">
+    <div class="dl-card" onclick="window.location.href='download.html'">
+      <div class="dl-card-icon">🖥️</div>
+      <div class="dl-card-name">WINDOWS</div>
+      <div class="dl-card-info">ELECTRON APP · v2087.04</div>
+    </div>
+    <div class="dl-card" onclick="showComingSoon()">
+      <div class="dl-card-icon">🍎</div>
+      <div class="dl-card-name">macOS</div>
+      <div class="dl-card-info">COMING SOON</div>
+    </div>
+    <div class="dl-card" onclick="showComingSoon()">
+      <div class="dl-card-icon">🐧</div>
+      <div class="dl-card-name">LINUX</div>
+      <div class="dl-card-info">COMING SOON</div>
+    </div>
+  </div>
+  <div class="dl-build">// NEMESIS · SECTOR 7 · BUILD 2087.04 · TACTICAL ARENA //</div>
+</section>
+
+<!-- RANKINGS -->
+<section id="rankings">
+  <div class="section-label">// COMPETITIVE TIERS</div>
+  <div class="section-title">RANKINGS <span>SYSTEM</span></div>
+  <div class="section-line"></div>
+  <div class="rankings-sub">
+    CLIMB THE LEADERBOARD<br/>
+    FROM COPPER TO NEMESIS · 8 RANKS · ULTIMATE GLORY
+  </div>
+
+  <div class="rankings-grid" id="rankingsGrid" style="display:none"></div>
+
+  <div style="font-size:7px;letter-spacing:3px;color:rgba(0,255,231,.25);text-align:center;margin-top:40px">// 8 RANKS · INFINITE COMPETITION · PROVE YOUR DOMINANCE //</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">NEMESIS</div>
+    <div class="footer-tagline">HIGH-INTENSITY TACTICAL FPS<br/>SECTOR 7 — BUILD 2087.04<br/>ZERO COMPROMISE. ZERO MERCY.</div>
+  </div>
+  <div>
+    <div class="footer-col-title">NAVIGATION</div>
+    <div class="footer-links">
+      <a href="#features" class="footer-link">FEATURES</a>
+      <a href="#intel" class="footer-link">INTEL FEED</a>
+      <a href="#rankings" class="footer-link">RANKINGS</a>
+      <a href="#downloads" class="footer-link">DOWNLOAD</a>
+    </div>
+  </div>
+  <div>
+    <div class="footer-col-title">STATUS</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:8px;letter-spacing:2px;color:var(--c2);display:flex;align-items:center;gap:6px"><div class="status-dot"></div>SERVERS ONLINE</div>
+      <div style="font-size:8px;letter-spacing:2px;color:var(--c2);display:flex;align-items:center;gap:6px"><div class="status-dot"></div>NETWORK STABLE</div>
+      <div style="font-size:8px;letter-spacing:2px;color:var(--c3);display:flex;align-items:center;gap:6px"><div style="width:6px;height:6px;border-radius:50%;background:var(--c3);animation:pulse 2s ease infinite"></div>THREAT: CRITICAL</div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>© 2087 NEMESIS TACTICAL SYSTEMS. ALL OPERATIVES EXPENDABLE.</span>
+    <span>SECTOR 7 · v2087.04</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div id="siteToast" style="position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;padding:12px 28px;background:rgba(2,5,8,.97);border:1px solid var(--bd);color:var(--c0);opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000;white-space:nowrap;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))"></div>
+
+<script>
+// ── CURSOR ─────────────────────────────────────────────────────────
+const ring = document.getElementById('cursorRing');
+const dot = document.getElementById('cursorDot');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+});
+function animCursor(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.addEventListener('click',function(e){
+  if(e.target.closest('a,button,.feat-card,.dl-card,.rank-card')){
+    ring.style.width='56px';ring.style.height='56px';
+    ring.style.borderColor='rgba(0,255,231,1)';
+    setTimeout(()=>{
+      ring.style.width='32px';ring.style.height='32px';
+      ring.style.borderColor='rgba(0,255,231,.6)';
+    },100);
+  }
+});
+document.querySelectorAll('a,button,.feat-card,.dl-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    ring.style.width='56px';ring.style.height='56px';
+    ring.style.borderColor='rgba(0,255,231,1)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    ring.style.width='32px';ring.style.height='32px';
+    ring.style.borderColor='rgba(0,255,231,.6)';
+  });
+});
+
+// ── HEX CONTENT ────────────────────────────────────────────────────
+const hexLines=['01001110','01000101','01001101','01000101','01010011','01001001','01010011','00000111',
+  'FF2D55A0','00FFE7B4','39FF14C8','SECTOR::7','GRID::4C','ENCRYPT::','████████','THREAT::','CRITICAL',
+  'UPLINK::1','OPS::NULL','KIA:02:14','CACHE::7A','ORBITAL::','LOCKED::!'];
+const hx=document.getElementById('hexContent');
+let hexStr='';
+for(let i=0;i<4;i++) hexLines.forEach(l=>{hexStr+=l+'\n'});
+hx.textContent=hexStr;
+
+// ── TICKER ─────────────────────────────────────────────────────────
+const tickerMsgs=[
+  {text:'SECTOR 7 THREAT LEVEL: CRITICAL',cls:'r'},
+  {text:'12 ACTIVE HOSTILES DETECTED',cls:'r'},
+  {text:'LAST OPERATIVE KIA: 02:14',cls:'r'},
+  {text:'NETWORK UPLINK: STABLE',cls:'g'},
+  {text:'LOADOUT SYSTEMS NOMINAL',cls:'g'},
+  {text:'AMMO CACHE LOCATED AT 7A',cls:'o'},
+  {text:'REINFORCEMENTS: UNAVAILABLE',cls:'r'},
+  {text:'ORBITAL STRIKE: LOCKED',cls:'o'},
+  {text:'ANOMALY DETECTED: GRID 4C',cls:'r'},
+  {text:'SCANNING PERIMETER...',cls:''},
+  {text:'ENCRYPTION KEY: ████████',cls:''},
+  {text:'NEW OPERATIVE DEPLOYING...',cls:'g'},
+];
+const track=document.getElementById('tickerTrack');
+[...tickerMsgs,...tickerMsgs].forEach(m=>{
+  const div=document.createElement('div');
+  div.className='ticker-item';
+  div.innerHTML=`<div class="ticker-dot ${m.cls}"></div><span style="${m.cls==='r'?'color:rgba(255,80,100,.8)':m.cls==='g'?'color:rgba(80,255,40,.8)':m.cls==='o'?'color:rgba(255,180,50,.8)':''}">${m.text}</span>`;
+  track.appendChild(div);
+});
+
+// ── INTEL FEED ─────────────────────────────────────────────────────
+const feedMsgs=[
+  {t:'00:00:01',msg:'> OPERATIVE DEPLOYED TO SECTOR 7',cls:'g'},
+  {t:'00:00:14',msg:'> 12 ACTIVE HOSTILES CONFIRMED ON GRID',cls:'r'},
+  {t:'00:01:02',msg:'> AMMO CACHE IDENTIFIED — LOCATION 7A',cls:'o'},
+  {t:'00:01:33',msg:'> NETWORK UPLINK ESTABLISHED — STABLE',cls:'g'},
+  {t:'00:02:14',msg:'> PREVIOUS OPERATIVE ELIMINATED',cls:'r'},
+  {t:'00:02:45',msg:'> REINFORCEMENTS REQUESTED — DENIED',cls:'r'},
+  {t:'00:03:11',msg:'> ORBITAL STRIKE AUTHORIZATION: LOCKED',cls:'o'},
+  {t:'00:03:58',msg:'> SCANNING GRID 4C — ANOMALY DETECTED',cls:'o'},
+  {t:'00:04:22',msg:'> ENCRYPTION KEY COMPROMISED: ████████',cls:'r'},
+  {t:'00:05:01',msg:'> SECTOR THREAT LEVEL ELEVATED TO: CRITICAL',cls:'r'},
+  {t:'00:05:44',msg:'> PERIMETER SCAN COMPLETE — 3 NEW CONTACTS',cls:'r'},
+  {t:'00:06:12',msg:'> EQUIPMENT SYSTEMS NOMINAL',cls:'g'},
+];
+const feed=document.getElementById('intelFeed');
+feedMsgs.forEach((f,i)=>{
+  const el=document.createElement('div');
+  el.className=`feed-row ${f.cls}`;
+  el.style.animationDelay=`${i*.08}s`;
+  el.innerHTML=`<span class="feed-ts">[${f.t}]</span>${f.msg}`;
+  feed.appendChild(el);
+});
+
+// ── LIVE HOSTILE COUNT ──────────────────────────────────────────────
+let hc=12;
+setInterval(()=>{
+  const delta=Math.random()>.5?1:-1;
+  hc=Math.max(8,Math.min(16,hc+delta));
+  const el=document.getElementById('liveHostiles');
+  if(el) el.textContent=hc;
+},3000);
+
+// ── SCROLL REVEAL ───────────────────────────────────────────────────
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+
+// ── SMOOTH SCROLL ───────────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+// ── TOAST ──────────────────────────────────────────────────────────
+let _toastT;
+function showToast(msg){
+  const el=document.getElementById('siteToast');
+  el.textContent=msg;
+  el.style.opacity='1';
+  clearTimeout(_toastT);
+  _toastT=setTimeout(()=>el.style.opacity='0',3500);
+}
+
+// ── ACTIONS ─────────────────────────────────────────────────────────
+function showComingSoon(){
+  showToast('PLATFORM NOT YET AVAILABLE — CHECK BACK SOON');
+}
+
+// ── RANK BADGES ─────────────────────────────────────────────────────
+const rankData = [
+  {name:'COPPER',desc:'The foundation. Every operative begins here. Learn the basics and survive your first deployment. This is where it all starts—build your core skills.',color:'#d4a574',tier:0},
+  {name:'SILVER',desc:'Proving yourself. You\'ve logged significant hours. Your tactics are becoming refined. You understand the mechanics and can handle pressure situations effectively.',color:'#e8e8e8',tier:1},
+  {name:'GOLD',desc:'Elite status achieved. Your weapon mastery is evident. You are a formidable threat to every opponent. Your decision-making under fire is exceptional.',color:'#ffd700',tier:2},
+  {name:'PLATINUM',desc:'Rare air. Few operatives reach this tier. Your precision and strategy are legendary. You dominate engagements through superior positioning and tactical awareness.',color:'#e5e4e2',tier:3},
+  {name:'DIAMOND',desc:'Among the chosen. Sector 7 trembles at your presence. Dominance is your standard. Every movement is calculated, every shot deliberate and devastating.',color:'#00bfff',tier:4},
+  {name:'EMERALD',desc:'Transcendent. You redefine what\'s possible. Every engagement bends to your will. Your presence alone shifts the balance of power in any arena.',color:'#50c878',tier:5},
+  {name:'MASTER',desc:'SUPREME MASTERY UNLOCKED. YOU ARE THE APEX PREDATOR OF SECTOR 7. OTHERS STUDY YOUR REPLAYS TO LEARN. YOUR DOMINANCE IS ABSOLUTE. EVERY ENEMY TREMBLES BEFORE YOU. YOU COMMAND THE SECTOR WITH AN IRON FIST.',color:'#ff6347',tier:6},
+  {name:'NEMESIS',desc:'THE APEX PREDATOR INCARNATE. ONE WITH THE SYSTEM. FEW MORTALS ACHIEVE THIS PLANE OF EXISTENCE. YOU ARE NOT JUST A PLAYER—YOU ARE THE THREAT. SECTOR 7 BENDS TO YOUR WILL. VICTORY IS YOUR BIRTHRIGHT. LEGEND STATUS PERMANENTLY ETCHED INTO THE HALLS OF IMMORTALITY.',color:'#a855f7',tier:7}
+];
+
+function createRankBadge(rank){
+  if(rank.name==='COPPER'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/rqHsZzm/bronze.webp';
+    img.alt='bronze';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    img.style.marginLeft='-6px';
+    img.style.marginTop='3px';
+    img.style.width='164px';
+    img.style.height='164px';
+    return img;
+  }
+  
+  if(rank.name==='SILVER'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/4nxYT0rK/silverrank.png';
+    img.alt='silver';
+    img.style.marginTop='-5px';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    return img;
+  }
+  
+  if(rank.name==='GOLD'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/4BNHcNr/goldrank.png';
+    img.alt='gold';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    return img;
+  }
+  
+  if(rank.name==='PLATINUM'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/r2hHMhRN/Platinum.png';
+    img.alt='platinum';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    return img;
+  }
+  
+  if(rank.name==='DIAMOND'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/xSWSTTXD/Diamond.png';
+    img.alt='diamond';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    return img;
+  }
+  
+  if(rank.name==='EMERALD'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/xSfMJ3n1/emeraldrank.png';
+    img.alt='emerald';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    img.style.width='180px';
+    img.style.height='180px';
+    return img;
+  }
+  
+  if(rank.name==='MASTER'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/8D3spT2W/masterrank.png';
+    img.alt='master';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    img.style.width='215px';
+    img.style.height='215px';
+    return img;
+  }
+  
+  if(rank.name==='NEMESIS'){
+    const img=document.createElement('img');
+    img.src='https://i.ibb.co/9Hk0HcD3/nemesisrank.png';
+    img.alt='nemesis';
+    img.className='rank-badge-img';
+    img.loading='lazy';
+    img.style.width='210px';
+    img.style.height='210px';
+    return img;
+  }
+
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 200 200');
+  svg.setAttribute('class','rank-badge-svg');
+  return svg;
+}
+
+function openRankModal(rankName,rankDesc){
+  const modal=document.createElement('div');
+  modal.className='rank-modal';
+  
+  const rank=rankData.find(r=>r.name===rankName);
+  const content=document.createElement('div');
+  content.className='rank-modal-content';
+  
+  const badge=document.createElement('div');
+  badge.className='rank-modal-badge';
+  badge.appendChild(createRankBadge(rank));
+  content.appendChild(badge);
+  
+  const title=document.createElement('div');
+  title.className='rank-modal-title';
+  title.textContent=rankName;
+  content.appendChild(title);
+  
+  const desc=document.createElement('div');
+  desc.className='rank-modal-desc';
+  desc.textContent=rankDesc;
+  content.appendChild(desc);
+  
+  const stats=document.createElement('div');
+  stats.className='rank-modal-stats';
+  stats.innerHTML=`
+    <div class="rank-modal-stat"><div class="rank-modal-stat-v">${rank.tier+1}</div><div class="rank-modal-stat-l">TIER</div></div>
+    <div class="rank-modal-stat"><div class="rank-modal-stat-v">${100+(rank.tier+1)*50}</div><div class="rank-modal-stat-l">MIN. RATING</div></div>
+  `;
+  content.appendChild(stats);
+  
+  const closeHint=document.createElement('div');
+  closeHint.className='rank-modal-close';
+  closeHint.textContent='// CLICK TO CLOSE //';
+  content.appendChild(closeHint);
+  
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+  
+  modal.addEventListener('click',(e)=>{
+    if(e.target===modal){
+      modal.style.animation='fadeOut .3s ease';
+      setTimeout(()=>modal.remove(),300);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  const grid=document.getElementById('rankingsGrid');
+  rankData.forEach((rank,i)=>{
+    const card=document.createElement('div');
+    card.className='rank-card reveal';
+    if(rank.tier===5) card.classList.add('emerald-tier');
+    if(rank.tier===6) card.classList.add('master-tier');
+    if(rank.tier===7) card.classList.add('nemesis-tier');
+    card.style.animationDelay=`${i*0.08}s`;
+    
+    const badgeContainer=document.createElement('div');
+    badgeContainer.className='rank-badge-container';
+    if(rank.tier===5) badgeContainer.classList.add('emerald-tier');
+    if(rank.tier===6) badgeContainer.classList.add('master-tier');
+    if(rank.tier===7) badgeContainer.classList.add('nemesis-tier');
+    badgeContainer.appendChild(createRankBadge(rank));
+    card.appendChild(badgeContainer);
+    
+    const name=document.createElement('div');
+    name.className='rank-name';
+    name.textContent=rank.name;
+    card.appendChild(name);
+    
+    const rankLvl=document.createElement('div');
+    rankLvl.className='rank-rank';
+    rankLvl.textContent=`// TIER ${rank.tier+1} //`;
+    card.appendChild(rankLvl);
+    
+    const descEl=document.createElement('div');
+    descEl.className='rank-desc';
+    descEl.textContent=rank.desc;
+    card.appendChild(descEl);
+    
+    card.addEventListener('click',()=>openRankModal(rank.name,rank.desc));
+    grid.appendChild(card);
+  });
+  grid.style.display='grid';
+  document.querySelectorAll('.rank-card').forEach(el=>observer.observe(el));
+});
+
+const style=document.createElement('style');
+style.textContent=`@keyframes fadeOut{from{opacity:1}to{opacity:0}}`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
